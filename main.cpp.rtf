@@ -1,377 +1,314 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2580
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fmodern\fcharset0 Courier;}
-{\colortbl;\red255\green255\blue255;\red70\green137\blue204;\red23\green23\blue23;\red194\green126\blue101;
-\red202\green202\blue202;\red212\green212\blue212;\red79\green123\blue61;\red167\green197\blue152;}
-{\*\expandedcolortbl;;\cssrgb\c33725\c61176\c83922;\cssrgb\c11765\c11765\c11765;\cssrgb\c80784\c56863\c47059;
-\cssrgb\c83137\c83137\c83137;\cssrgb\c86275\c86275\c86275;\cssrgb\c37647\c54510\c30588;\cssrgb\c70980\c80784\c65882;}
-\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\sl420\partightenfactor0
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<cstring>
+#include<fstream>
+#include<unordered_map>
+#include<string>
+#include<sstream>
+#include<memory>
+#include<any>
 
-\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 #include<\cf4 \strokec4 iostream\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 algorithm\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 vector\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 cstring\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 fstream\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 unordered_map\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 string\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 sstream\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 memory\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 #include<\cf4 \strokec4 any\cf2 \strokec2 >\cf5 \cb1 \strokec5 \
-\
-\cf2 \cb3 \strokec2 using\cf5 \strokec5  \cf2 \strokec2 namespace\cf5 \strokec5  std\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 class\cf5 \strokec5  Payload \cf7 \strokec7 //For Further discussion\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     \cf2 \strokec2 typedef\cf5 \strokec5  std::shared_ptr\cf6 \strokec6 <\cf5 \strokec5 Payload\cf6 \strokec6 >\cf5 \strokec5  Ptr\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 typedef\cf5 \strokec5  std::shared_ptr\cf6 \strokec6 <\cf5 \strokec5 Ptr\cf6 \strokec6 >\cf5 \strokec5  children_t\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 public\cf6 \strokec6 :\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 virtual\cf5 \strokec5  \cf6 \strokec6 ~\cf5 \strokec5 Payload\cf6 \strokec6 ()\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3             std::cout\cf6 \strokec6 <<\cf4 \strokec4 "In Payload destructor"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \};\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 class\cf5 \strokec5  Dictionary \cf7 \strokec7 // For Further discussion\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     \cf2 \strokec2 friend\cf5 \strokec5  \cf2 \strokec2 class\cf5 \strokec5  OrderManager\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 friend\cf5 \strokec5  \cf2 \strokec2 class\cf5 \strokec5  FIXValidator\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 friend\cf5 \strokec5  \cf2 \strokec2 class\cf5 \strokec5  FIXParser\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \};\cf5 \cb1 \strokec5 \
-\
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 enum\cf5 \strokec5  severity \cf6 \strokec6 \{\cf5 \strokec5 INFO\cf6 \strokec6 ,\cf5 \strokec5 WARN\cf6 \strokec6 ,\cf5 \strokec5 ERROR\cf6 \strokec6 \};\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 inline\cf5 \strokec5  \cf2 \strokec2 void\cf5 \strokec5  LogMessage\cf6 \strokec6 (\cf5 \strokec5 severity _serverity\cf6 \strokec6 ,\cf5 \strokec5  \cf2 \strokec2 const\cf5 \strokec5  stringstream \cf6 \strokec6 &\cf5 \strokec5 message\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3      string logSeverity\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3      \cf2 \strokec2 switch\cf6 \strokec6 (\cf5 \strokec5 _serverity\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3      \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3          \cf2 \strokec2 case\cf5 \strokec5  severity::INFO \cf6 \strokec6 :\cf5 \strokec5  logSeverity \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 "INFO:"\cf6 \strokec6 ;\cf5 \strokec5  \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3          \cf2 \strokec2 case\cf5 \strokec5  severity::WARN \cf6 \strokec6 :\cf5 \strokec5  logSeverity \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 "WARN:"\cf6 \strokec6 ;\cf5 \strokec5  \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3          \cf2 \strokec2 case\cf5 \strokec5  severity::ERROR \cf6 \strokec6 :\cf5 \strokec5  logSeverity \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 "ERROR:"\cf6 \strokec6 ;\cf5 \strokec5  \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3      \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3      \cb1 \
-\cb3      cout\cf6 \strokec6 <<\cf5 \strokec5 logSeverity\cf6 \strokec6 <<\cf5 \strokec5 message\cf6 \strokec6 .\cf5 \strokec5 str\cf6 \strokec6 ()<<\cf5 \strokec5 endl\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 namespace\cf5 \strokec5  spriderrock_ns\cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     \cf2 \strokec2 struct\cf5 \strokec5  PriceDetail\cb1 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 double\cf5 \strokec5  HighBidPrice \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 double\cf5 \strokec5  HighAskPrice \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 double\cf5 \strokec5  LowBidPrice \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 double\cf5 \strokec5  LowAskPrice \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 char\cf5 \strokec5  decimals\cf6 \strokec6 [\cf8 \strokec8 4\cf6 \strokec6 ];\cf5 \strokec5  \cf7 \strokec7 // Can be used for scaling and descaling purpose  \cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \};\cf5 \strokec5  \cb1 \
-\cb3     \cf2 \strokec2 const\cf5 \strokec5  \cf2 \strokec2 unsigned\cf5 \strokec5  \cf2 \strokec2 char\cf5 \strokec5  msgType_AddNewOrderSingle \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 'D'\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 const\cf5 \strokec5  \cf2 \strokec2 unsigned\cf5 \strokec5  \cf2 \strokec2 char\cf5 \strokec5  msgType_Logon \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 'A'\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 const\cf5 \strokec5  \cf2 \strokec2 unsigned\cf5 \strokec5  \cf2 \strokec2 char\cf5 \strokec5  msgType_ExecutionReport \cf6 \strokec6 =\cf4 \strokec4 '8'\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 const\cf5 \strokec5  \cf2 \strokec2 unsigned\cf5 \strokec5  \cf2 \strokec2 char\cf5 \strokec5  msgType_Heartbeat \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 '0'\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 const\cf5 \strokec5  \cf2 \strokec2 unsigned\cf5 \strokec5  \cf2 \strokec2 char\cf5 \strokec5  msgType_NewOrderMultiLeg\cf6 \strokec6 []\cf5 \strokec5  \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 "AB"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 const\cf5 \strokec5  \cf2 \strokec2 unsigned\cf5 \strokec5  \cf2 \strokec2 char\cf5 \strokec5  msgType_BusinessReject \cf6 \strokec6 =\cf5 \strokec5  \cf4 \strokec4 'j'\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 enum\cf5 \strokec5  msg_tag\cb1 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3        \cf7 \strokec7 /*FixHeader*/\cf5 \cb1 \strokec5 \
-\cb3        BeginString \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 8\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        BodyLength \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 9\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        MsgType \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 35\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        SenderCompId \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 49\cf6 \strokec6 ,\cf5 \strokec5        \cb1 \
-\cb3        TargetCompId \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 54\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        OnBehalfOfCompId \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 115\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        DeliverToCompId \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 128\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        SecureDataLen \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 90\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        SecureData \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 91\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        MsgSeqNum \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 34\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        SendingTime \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 52\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        \cf7 \strokec7 /*-------End Fix Header-----*/\cf5 \cb1 \strokec5 \
-\cb3        \cf7 \strokec7 /*FixTrailer*/\cf5 \cb1 \strokec5 \
-\cb3        Checksum \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 10\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        \cf7 \strokec7 /*-------End Fix Trailer----*/\cf5 \cb1 \strokec5 \
-\cb3        EncryptMethod \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 98\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        HeartbeatInterval \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 108\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        RawDataLength \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 95\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        RawData \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 96\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        ResetSequenceNumberFlag \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 141\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        NextExpectedMsgSeqNum \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 789\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        MaxMessageSize \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 383\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        NoMsgTypes \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 384\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        RefMesgType \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 372\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        MsgDirection \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 385\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        TestMsgIndicator \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 464\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        UserName \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 553\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        Password \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 554\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        Account \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 1\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        Price \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 44\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        Side \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 54\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3        PriceType \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 423\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \};\cf5 \cb1 \strokec5 \
-\
-\cb3     \cf2 \strokec2 auto\cf5 \strokec5  validateUniqueTag \cf6 \strokec6 =\cf5 \strokec5  \cf6 \strokec6 [](\cf2 \strokec2 auto\cf5 \strokec5  \cf2 \strokec2 const\cf5 \strokec5  \cf6 \strokec6 &\cf5 \strokec5 pair\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 if\cf6 \strokec6 (!\cf5 \strokec5 pair\cf6 \strokec6 .\cf5 \strokec5 second\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 return\cf5 \strokec5  \cf2 \strokec2 false\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \}\cf5 \strokec5     \cb1 \
-\cb3     \cf2 \strokec2 return\cf5 \strokec5  \cf2 \strokec2 true\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \};\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 typedef\cf5 \strokec5  unordered_map\cf6 \strokec6 <\cf5 \strokec5 string\cf7 \strokec7 /*Account Id*/\cf6 \strokec6 ,\cf5 \strokec5  spriderrock_ns::PriceDetail\cf6 \strokec6 >\cf5 \strokec5  AccountHighLowPriceMap\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cf2 \cb3 \strokec2 typedef\cf5 \strokec5  unordered_map\cf6 \strokec6 <\cf5 \strokec5 string \cf7 \strokec7 /*Fix Tag*/\cf6 \strokec6 ,\cf5 \strokec5  std::any \cf7 \strokec7 /*Tag Value*/\cf5 \strokec5  \cf6 \strokec6 >\cf5 \strokec5  FixTagValueMap\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\
-\cf2 \cb3 \strokec2 class\cf5 \strokec5  FIXParser\cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     \cf2 \strokec2 private\cf6 \strokec6 :\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 enum\cf5 \strokec5  NowParsing \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3         Tag\cf6 \strokec6 ,\cf5 \cb1 \strokec5 \
-\cb3         Value\cb1 \
-\cb3     \cf6 \strokec6 \};\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 friend\cf5 \strokec5  \cf2 \strokec2 class\cf5 \strokec5  OrderManager\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cb1 \
-\cb3     \cf2 \strokec2 static\cf5 \strokec5  \cf2 \strokec2 const\cf5 \strokec5  std::string to_string\cf6 \strokec6 (\cf5 \strokec5 NowParsing np\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 switch\cf6 \strokec6 (\cf5 \strokec5 np\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 case\cf5 \strokec5  Tag\cf6 \strokec6 :\cf5 \strokec5  \cf2 \strokec2 return\cf5 \strokec5  \cf4 \strokec4 "Tag"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 case\cf5 \strokec5  Value\cf6 \strokec6 :\cf5 \strokec5  \cf2 \strokec2 return\cf5 \strokec5  \cf4 \strokec4 "Value"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 default\cf6 \strokec6 :\cf5 \strokec5  \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 return\cf5 \strokec5  \cf4 \strokec4 "UNKNOWN"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 public\cf6 \strokec6 :\cf5 \cb1 \strokec5 \
-\
-\cb3     FixTagValueMap parseFixMessageTags\cf6 \strokec6 (\cf5 \strokec5 std::string \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  s\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3         stringstream log\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         FixTagValueMap tagValueMap\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cb1 \
-\cb3         std::string::size_type key_pos \cf6 \strokec6 =\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         std::string::size_type key_end\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         std::string::size_type val_pos\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         std::string::size_type val_end\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf2 \strokec2 while\cf6 \strokec6 ((\cf5 \strokec5 key_end \cf6 \strokec6 =\cf5 \strokec5  s\cf6 \strokec6 .\cf5 \strokec5 find\cf6 \strokec6 (\cf4 \strokec4 '='\cf6 \strokec6 ,\cf5 \strokec5  key_pos\cf6 \strokec6 ))\cf5 \strokec5  \cf6 \strokec6 !=\cf5 \strokec5  std::string::npos\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 if\cf6 \strokec6 ((\cf5 \strokec5 val_pos \cf6 \strokec6 =\cf5 \strokec5  s\cf6 \strokec6 .\cf5 \strokec5 find_first_not_of\cf6 \strokec6 (\cf4 \strokec4 "= "\cf6 \strokec6 ,\cf5 \strokec5  key_end\cf6 \strokec6 ))\cf5 \strokec5  \cf6 \strokec6 ==\cf5 \strokec5  std::string::npos\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3                 \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\
-\cb3             val_end \cf6 \strokec6 =\cf5 \strokec5  s\cf6 \strokec6 .\cf5 \strokec5 find\cf6 \strokec6 (\cf4 \strokec4 '|'\cf6 \strokec6 ,\cf5 \strokec5  val_pos\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 bool\cf5 \strokec5  validation \cf6 \strokec6 =\cf5 \strokec5  spriderrock_ns::validateUniqueTag\cf6 \strokec6 (\cf5 \strokec5 tagValueMap\cf6 \strokec6 .\cf5 \strokec5 try_emplace\cf6 \strokec6 (\cf5 \strokec5 s\cf6 \strokec6 .\cf5 \strokec5 substr\cf6 \strokec6 (\cf5 \strokec5 key_pos\cf6 \strokec6 ,\cf5 \strokec5  key_end \cf6 \strokec6 -\cf5 \strokec5  key_pos\cf6 \strokec6 ),\cf5 \strokec5  s\cf6 \strokec6 .\cf5 \strokec5 substr\cf6 \strokec6 (\cf5 \strokec5 val_pos\cf6 \strokec6 ,\cf5 \strokec5  val_end \cf6 \strokec6 -\cf5 \strokec5  val_pos\cf6 \strokec6 )));\cf5 \strokec5             \cb1 \
-\cb3             \cf2 \strokec2 if\cf6 \strokec6 (!\cf5 \strokec5 validation\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3                 log\cf6 \strokec6 .\cf5 \strokec5 str\cf6 \strokec6 (\cf5 \strokec5 std::string\cf6 \strokec6 ());\cf5 \cb1 \strokec5 \
-\cb3                 log \cf6 \strokec6 <<\cf4 \strokec4 "Duplicate tag: "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  s\cf6 \strokec6 .\cf5 \strokec5 substr\cf6 \strokec6 (\cf5 \strokec5 key_pos\cf6 \strokec6 ,\cf5 \strokec5  key_end \cf6 \strokec6 -\cf5 \strokec5  key_pos\cf6 \strokec6 )\cf5 \strokec5  \cf6 \strokec6 <<\cf4 \strokec4 " SkippingMessage "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  s\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                 LogMessage\cf6 \strokec6 (\cf5 \strokec5 severity::ERROR\cf6 \strokec6 ,\cf5 \strokec5 log\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3                 tagValueMap\cf6 \strokec6 .\cf5 \strokec5 clear\cf6 \strokec6 ();\cf5 \cb1 \strokec5 \
-\cb3                 \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3             key_pos \cf6 \strokec6 =\cf5 \strokec5  val_end\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 key_pos \cf6 \strokec6 !=\cf5 \strokec5  std::string::npos\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3                 \cf6 \strokec6 ++\cf5 \strokec5 key_pos\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cb1 \
-\cb3         \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 return\cf5 \strokec5  tagValueMap\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\
-\cf6 \cb3 \strokec6 \};\cf5 \cb1 \strokec5 \
-\
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 class\cf5 \strokec5  OrderManager\cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     \cf2 \strokec2 private\cf6 \strokec6 :\cf5 \cb1 \strokec5 \
-\cb3         AccountHighLowPriceMap accountToPriceMap\cf6 \strokec6 ;\cf5 \strokec5           \cb1 \
-\cb3         \cf2 \strokec2 void\cf5 \strokec5  getHighLowPricePerAccount\cf6 \strokec6 (\cf5 \strokec5 FixTagValueMap \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  newOrderSingle\cf6 \strokec6 );\cf5 \strokec5    \cb1 \
-\cb3         \cb1 \
-\cb3     \cf2 \strokec2 public\cf6 \strokec6 :\cf5 \strokec5  \cb1 \
-\cb3         \cf2 \strokec2 void\cf5 \strokec5  processOrders\cf6 \strokec6 (\cf5 \strokec5 FixTagValueMap \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  newOrderSingle\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 void\cf5 \strokec5  displayPriceTable\cf6 \strokec6 ();\cf5 \cb1 \strokec5 \
-\cb3       \cb1 \
-\cb3         \cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \};\cf5 \cb1 \strokec5 \
-\
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 void\cf5 \strokec5  OrderManager::displayPriceTable\cf6 \strokec6 ()\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     cout\cf6 \strokec6 <<\cf4 \strokec4 "\\n\\n\\nAccount Price Table High Low Stats \\n\\n"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3    \cb1 \
-\cb3     \cf2 \strokec2 for\cf6 \strokec6 (\cf2 \strokec2 const\cf5 \strokec5  \cf2 \strokec2 auto\cf6 \strokec6 &\cf5 \strokec5  element \cf6 \strokec6 :\cf5 \strokec5  accountToPriceMap\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3         cout\cf6 \strokec6 <<\cf4 \strokec4 "\\nAccount : "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  element\cf6 \strokec6 .\cf5 \strokec5 first\cf6 \strokec6 <<\cf4 \strokec4 "\\n"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         cout\cf6 \strokec6 <<\cf4 \strokec4 "---------- HighBidPrice : "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  element\cf6 \strokec6 .\cf5 \strokec5 second\cf6 \strokec6 .\cf5 \strokec5 HighBidPrice \cf6 \strokec6 <<\cf5 \strokec5  \cf4 \strokec4 "\\n"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         cout\cf6 \strokec6 <<\cf4 \strokec4 "---------- LowBidPrice : "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  element\cf6 \strokec6 .\cf5 \strokec5 second\cf6 \strokec6 .\cf5 \strokec5 LowBidPrice \cf6 \strokec6 <<\cf5 \strokec5  \cf4 \strokec4 "\\n"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         cout\cf6 \strokec6 <<\cf4 \strokec4 "---------- HighAskPrice : "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  element\cf6 \strokec6 .\cf5 \strokec5 second\cf6 \strokec6 .\cf5 \strokec5 HighAskPrice \cf6 \strokec6 <<\cf5 \strokec5  \cf4 \strokec4 "\\n"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         cout\cf6 \strokec6 <<\cf4 \strokec4 "---------- LowAskPrice : "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  element\cf6 \strokec6 .\cf5 \strokec5 second\cf6 \strokec6 .\cf5 \strokec5 LowAskPrice \cf6 \strokec6 <<\cf5 \strokec5  \cf4 \strokec4 "\\n"\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cb1 \
-\cb3     \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3     \cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 void\cf5 \strokec5  OrderManager::processOrders\cf6 \strokec6 (\cf5 \strokec5 FixTagValueMap \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  newOrderSingle\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     getHighLowPricePerAccount\cf6 \strokec6 (\cf5 \strokec5 newOrderSingle\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 void\cf5 \strokec5  OrderManager::getHighLowPricePerAccount\cf6 \strokec6 (\cf5 \strokec5 FixTagValueMap \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  newOrderSingle\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3      \cf2 \strokec2 double\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3      string side\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3      string account\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3      \cf2 \strokec2 auto\cf5 \strokec5  tagValueItr \cf6 \strokec6 =\cf5 \strokec5  newOrderSingle\cf6 \strokec6 .\cf5 \strokec5 find\cf6 \strokec6 (\cf5 \strokec5 to_string\cf6 \strokec6 (\cf5 \strokec5 spriderrock_ns::msg_tag::Account\cf6 \strokec6 ));\cf5 \cb1 \strokec5 \
-\cb3     \cb1 \
-\cb3      \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 tagValueItr \cf6 \strokec6 !=\cf5 \strokec5  newOrderSingle\cf6 \strokec6 .\cf5 \strokec5 end\cf6 \strokec6 ())\cf5 \cb1 \strokec5 \
-\cb3      \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3          account \cf6 \strokec6 =\cf5 \strokec5  std::any_cast\cf6 \strokec6 <\cf5 \strokec5 string\cf6 \strokec6 >(\cf5 \strokec5 tagValueItr->second\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3      \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3         tagValueItr \cf6 \strokec6 =\cf5 \strokec5  newOrderSingle\cf6 \strokec6 .\cf5 \strokec5 find\cf6 \strokec6 (\cf5 \strokec5 to_string\cf6 \strokec6 (\cf5 \strokec5 spriderrock_ns::msg_tag::Price\cf6 \strokec6 ));\cf5 \strokec5  \cb1 \
-\cb3          \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 tagValueItr \cf6 \strokec6 !=\cf5 \strokec5  newOrderSingle\cf6 \strokec6 .\cf5 \strokec5 end\cf6 \strokec6 ())\cf5 \cb1 \strokec5 \
-\cb3          \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3              price \cf6 \strokec6 =\cf5 \strokec5  stold\cf6 \strokec6 (\cf5 \strokec5 std::any_cast\cf6 \strokec6 <\cf5 \strokec5 string\cf6 \strokec6 >(\cf5 \strokec5 tagValueItr->second\cf6 \strokec6 ));\cf5 \cb1 \strokec5 \
-\cb3          \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3          tagValueItr \cf6 \strokec6 =\cf5 \strokec5  newOrderSingle\cf6 \strokec6 .\cf5 \strokec5 find\cf6 \strokec6 (\cf5 \strokec5 to_string\cf6 \strokec6 (\cf5 \strokec5 spriderrock_ns::msg_tag::Side\cf6 \strokec6 ));\cf5 \strokec5  \cb1 \
-\cb3          \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 tagValueItr\cf6 \strokec6 !=\cf5 \strokec5 newOrderSingle\cf6 \strokec6 .\cf5 \strokec5 end\cf6 \strokec6 ())\cf5 \cb1 \strokec5 \
-\cb3          \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3              side \cf6 \strokec6 =\cf5 \strokec5  std::any_cast\cf6 \strokec6 <\cf5 \strokec5 string\cf6 \strokec6 >(\cf5 \strokec5 tagValueItr->second\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3          \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3          \cf2 \strokec2 auto\cf5 \strokec5  accountPriceItr \cf6 \strokec6 =\cf5 \strokec5  accountToPriceMap\cf6 \strokec6 .\cf5 \strokec5 find\cf6 \strokec6 (\cf5 \strokec5 account\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3          \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 accountPriceItr \cf6 \strokec6 !=\cf5 \strokec5  accountToPriceMap\cf6 \strokec6 .\cf5 \strokec5 end\cf6 \strokec6 ())\cf5 \strokec5  \cf7 \strokec7 // Found the account\cf5 \cb1 \strokec5 \
-\cb3          \cf6 \strokec6 \{\cf5 \strokec5        \cb1 \
-\cb3             \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 tagValueItr\cf6 \strokec6 !=\cf5 \strokec5 newOrderSingle\cf6 \strokec6 .\cf5 \strokec5 end\cf6 \strokec6 ())\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3                 \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 side \cf6 \strokec6 ==\cf5 \strokec5  \cf4 \strokec4 "1"\cf6 \strokec6 )\cf5 \strokec5  \cf7 \strokec7 // Bid Side\cf5 \cb1 \strokec5 \
-\cb3                 \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighBidPrice \cf6 \strokec6 <\cf5 \strokec5  price\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3                         accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighBidPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowBidPrice \cf6 \strokec6 >\cf5 \strokec5  price\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3                         accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowBidPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf5 \strokec5  \cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighBidPrice \cf6 \strokec6 ==\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 )\cf5 \strokec5  accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighBidPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf5 \strokec5  \cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowBidPrice \cf6 \strokec6 ==\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 )\cf5 \strokec5  accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowBidPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                 \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3                 \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 side \cf6 \strokec6 ==\cf5 \strokec5  \cf4 \strokec4 "2"\cf6 \strokec6 )\cf5 \strokec5  \cf7 \strokec7 // Offer Side\cf5 \cb1 \strokec5 \
-\cb3                 \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighAskPrice \cf6 \strokec6 <\cf5 \strokec5  price\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3                         accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighAskPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowAskPrice \cf6 \strokec6 >\cf5 \strokec5  price\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3                         accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowAskPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf5 \strokec5  \cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighAskPrice \cf6 \strokec6 ==\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 )\cf5 \strokec5  accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 HighAskPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                     \cf2 \strokec2 if\cf5 \strokec5  \cf6 \strokec6 (\cf5 \strokec5 accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowAskPrice \cf6 \strokec6 ==\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 )\cf5 \strokec5  accountPriceItr->second\cf6 \strokec6 .\cf5 \strokec5 LowAskPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                 \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3          \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3          \cf2 \strokec2 else\cf5 \cb1 \strokec5 \
-\cb3          \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3             spriderrock_ns::PriceDetail priceDetail\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 side\cf6 \strokec6 ==\cf4 \strokec4 "1"\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3                 priceDetail\cf6 \strokec6 .\cf5 \strokec5 HighBidPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                 priceDetail\cf6 \strokec6 .\cf5 \strokec5 LowBidPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 else\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3                 priceDetail\cf6 \strokec6 .\cf5 \strokec5 HighAskPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                 priceDetail\cf6 \strokec6 .\cf5 \strokec5 LowAskPrice \cf6 \strokec6 =\cf5 \strokec5  price\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3             accountToPriceMap\cf6 \strokec6 .\cf5 \strokec5 try_emplace\cf6 \strokec6 (\cf5 \strokec5 account\cf6 \strokec6 ,\cf5 \strokec5 priceDetail\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\
-\cb3         \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3        \cb1 \
-\cb3            \cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 class\cf5 \strokec5  SpiderrockFixSession\cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     \cf2 \strokec2 private\cf6 \strokec6 :\cf5 \cb1 \strokec5 \
-\cb3     shared_ptr\cf6 \strokec6 <\cf5 \strokec5 OrderManager\cf6 \strokec6 >\cf5 \strokec5  orderManager\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     shared_ptr\cf6 \strokec6 <\cf5 \strokec5 FIXParser\cf6 \strokec6 >\cf5 \strokec5  fixParser\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\
-\cb3     \cf2 \strokec2 public\cf6 \strokec6 :\cf5 \cb1 \strokec5 \
-\cb3     SpiderrockFixSession\cf6 \strokec6 ()\cf5 \strokec5  \cf6 \strokec6 :\cf5 \strokec5  orderManager\cf6 \strokec6 (\cf2 \strokec2 new\cf5 \strokec5  OrderManager\cf6 \strokec6 ())\cf5 \strokec5  \cf6 \strokec6 \{\}\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 void\cf5 \strokec5  SetupMsgHandlers\cf6 \strokec6 (\cf5 \strokec5 string \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  fixMessage\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 void\cf5 \strokec5  HandleOrderMessage\cf6 \strokec6 (\cf5 \strokec5 string \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  fixMessage\cf6 \strokec6 );\cf5 \strokec5   \cb1 \
-\cb3     \cf2 \strokec2 void\cf5 \strokec5  DisplayHighLowPricePerAccount\cf6 \strokec6 ();\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \};\cf5 \cb1 \strokec5 \
-\
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 void\cf5 \strokec5  SpiderrockFixSession::SetupMsgHandlers\cf6 \strokec6 (\cf5 \strokec5 string \cf2 \strokec2 const\cf6 \strokec6 &\cf5 \strokec5  fixMessage\cf6 \strokec6 )\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     stringstream log\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 auto\cf5 \strokec5  goodFix \cf6 \strokec6 =\cf5 \strokec5  fixParser->parseFixMessageTags\cf6 \strokec6 (\cf5 \strokec5 fixMessage\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3     string msgType\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 if\cf6 \strokec6 (!\cf5 \strokec5 goodFix\cf6 \strokec6 .\cf5 \strokec5 empty\cf6 \strokec6 ())\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3       \cf2 \strokec2 auto\cf5 \strokec5  fixItr  \cf6 \strokec6 =\cf5 \strokec5  goodFix\cf6 \strokec6 .\cf5 \strokec5 find\cf6 \strokec6 (\cf5 \strokec5 to_string\cf6 \strokec6 (\cf5 \strokec5 spriderrock_ns::msg_tag::MsgType\cf6 \strokec6 ));\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 if\cf6 \strokec6 (\cf5 \strokec5 fixItr \cf6 \strokec6 !=\cf5 \strokec5  goodFix\cf6 \strokec6 .\cf5 \strokec5 end\cf6 \strokec6 ())\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3             msgType \cf6 \strokec6 =\cf5 \strokec5  std::any_cast\cf6 \strokec6 <\cf5 \strokec5 string\cf6 \strokec6 >(\cf5 \strokec5 fixItr->second\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3         \cf2 \strokec2 switch\cf5 \strokec5  \cf6 \strokec6 (\cf5 \strokec5 msgType\cf6 \strokec6 [\cf8 \strokec8 0\cf6 \strokec6 ])\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \{\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 case\cf5 \strokec5  spriderrock_ns::msgType_AddNewOrderSingle \cf6 \strokec6 :\cf5 \strokec5    orderManager->processOrders\cf6 \strokec6 (\cf5 \strokec5 goodFix\cf6 \strokec6 );\cf5 \strokec5  \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3             \cf2 \strokec2 default\cf6 \strokec6 :\cf5 \strokec5  log\cf6 \strokec6 .\cf5 \strokec5 str\cf6 \strokec6 (\cf5 \strokec5 std::string\cf6 \strokec6 ());\cf5 \cb1 \strokec5 \
-\cb3                      log \cf6 \strokec6 <<\cf4 \strokec4 "Unhandled MsgTpe "\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5  msgType\cf6 \strokec6 [\cf8 \strokec8 0\cf6 \strokec6 ]\cf5 \strokec5  \cf6 \strokec6 <<\cf5 \strokec5 endl\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3                      LogMessage\cf6 \strokec6 (\cf5 \strokec5 severity::WARN\cf6 \strokec6 ,\cf5 \strokec5 log\cf6 \strokec6 );\cf5 \cb1 \strokec5 \
-\cb3                      \cf2 \strokec2 break\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3         \cf6 \strokec6 \}\cf5 \strokec5  \cb1 \
-\cb3     \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3     \cb1 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 void\cf5 \strokec5  SpiderrockFixSession::DisplayHighLowPricePerAccount\cf6 \strokec6 ()\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     orderManager->displayPriceTable\cf6 \strokec6 ();\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf2 \cb3 \strokec2 int\cf5 \strokec5  main\cf6 \strokec6 ()\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \{\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf5 \cb3     SpiderrockFixSession \cf6 \strokec6 *\cf5 \strokec5 spiderrock \cf6 \strokec6 =\cf5 \strokec5  \cf2 \strokec2 new\cf5 \strokec5  SpiderrockFixSession\cf6 \strokec6 ();\cf5 \cb1 \strokec5 \
-\cb3     string line\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 while\cf6 \strokec6 (\cf5 \strokec5 getline\cf6 \strokec6 (\cf5 \strokec5 cin\cf6 \strokec6 ,\cf5 \strokec5 line\cf6 \strokec6 ))\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \{\cf5 \strokec5        \cb1 \
-\cb3         spiderrock->SetupMsgHandlers\cf6 \strokec6 (\cf5 \strokec5 line\cf6 \strokec6 .\cf5 \strokec5 c_str\cf6 \strokec6 ());\cf5 \cb1 \strokec5 \
-\cb3     \cf6 \strokec6 \}\cf5 \cb1 \strokec5 \
-\cb3     spiderrock->DisplayHighLowPricePerAccount\cf6 \strokec6 ();\cf5 \cb1 \strokec5 \
-\cb3     \cf2 \strokec2 return\cf5 \strokec5  \cf8 \strokec8 0\cf6 \strokec6 ;\cf5 \cb1 \strokec5 \
-\pard\pardeftab720\sl420\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf5 \cb1 \strokec5 \
+using namespace std;
+class Payload //For Further discussion
+{
+    typedef std::shared_ptr<Payload> Ptr;
+    typedef std::shared_ptr<Ptr> children_t;
+    public:
+        virtual ~Payload()
+        {
+            std::cout<<"In Payload destructor";
+        }
+};
+class Dictionary // For Further discussion
+{
+    friend class OrderManager;
+    friend class FIXValidator;
+    friend class FIXParser;
+};
+
+enum severity {INFO,WARN,ERROR};
+inline void LogMessage(severity _serverity, const stringstream &message)
+{
+     string logSeverity;
+     switch(_serverity)
+     {
+         case severity::INFO : logSeverity = "INFO:"; break;
+         case severity::WARN : logSeverity = "WARN:"; break;
+         case severity::ERROR : logSeverity = "ERROR:"; break;
+     }
+     
+     cout<<logSeverity<<message.str()<<endl;
+}
+
+namespace spriderrock_ns
+{
+    struct PriceDetail
+    {
+        double HighBidPrice = 0;
+        double HighAskPrice = 0;
+        double LowBidPrice = 0;
+        double LowAskPrice = 0;
+        char decimals[4]; // Can be used for scaling and descaling purpose  
+    }; 
+    const unsigned char msgType_AddNewOrderSingle = 'D';
+    const unsigned char msgType_Logon = 'A';
+    const unsigned char msgType_ExecutionReport ='8';
+    const unsigned char msgType_Heartbeat = '0';
+    const unsigned char msgType_NewOrderMultiLeg[] = "AB";
+    const unsigned char msgType_BusinessReject = 'j';
+    enum msg_tag
+    {
+       /*FixHeader*/
+       BeginString = 8,
+       BodyLength = 9,
+       MsgType = 35,
+       SenderCompId = 49,       
+       TargetCompId = 54,
+       OnBehalfOfCompId = 115,
+       DeliverToCompId = 128,
+       SecureDataLen = 90,
+       SecureData = 91,
+       MsgSeqNum = 34,
+       SendingTime = 52,
+       /*-------End Fix Header-----*/
+       /*FixTrailer*/
+       Checksum = 10,
+       /*-------End Fix Trailer----*/
+       EncryptMethod = 98,
+       HeartbeatInterval = 108,
+       RawDataLength = 95,
+       RawData = 96,
+       ResetSequenceNumberFlag = 141,
+       NextExpectedMsgSeqNum = 789,
+       MaxMessageSize = 383,
+       NoMsgTypes = 384,
+       RefMesgType = 372,
+       MsgDirection = 385,
+       TestMsgIndicator = 464,
+       UserName = 553,
+       Password = 554,
+       Account = 1,
+       Price = 44,
+       Side = 54,
+       PriceType = 423
+    };
+
+    auto validateUniqueTag = [](auto const &pair)
+    {
+    if(!pair.second)
+    {
+        return false;
+    }    
+    return true;
+    };
+}
+
+typedef unordered_map<string/*Account Id*/, spriderrock_ns::PriceDetail> AccountHighLowPriceMap;
+typedef unordered_map<string /*Fix Tag*/, std::any /*Tag Value*/ > FixTagValueMap;
+
+class FIXParser
+{
+    private:
+    enum NowParsing {
+        Tag,
+        Value
+    };
+    friend class OrderManager;
+    
+    static const std::string to_string(NowParsing np)
+    {
+        switch(np)
+        {
+            case Tag: return "Tag";
+            case Value: return "Value";
+            default: break;
+        }
+        return "UNKNOWN";
+    }
+    public:
+
+    FixTagValueMap parseFixMessageTags(std::string const& s)
+    {
+        stringstream log;
+        FixTagValueMap tagValueMap;
+        
+        std::string::size_type key_pos = 0;
+        std::string::size_type key_end;
+        std::string::size_type val_pos;
+        std::string::size_type val_end;
+
+        while((key_end = s.find('=', key_pos)) != std::string::npos)
+        {
+            if((val_pos = s.find_first_not_of("= ", key_end)) == std::string::npos)
+                break;
+
+            val_end = s.find('|', val_pos);
+            bool validation = spriderrock_ns::validateUniqueTag(tagValueMap.try_emplace(s.substr(key_pos, key_end - key_pos), s.substr(val_pos, val_end - val_pos)));            
+            if(!validation)
+            {
+                log.str(std::string());
+                log <<"Duplicate tag: " << s.substr(key_pos, key_end - key_pos) <<" SkippingMessage " << s;
+                LogMessage(severity::ERROR,log);
+                tagValueMap.clear();
+                break;
+            }
+            key_pos = val_end;
+            if(key_pos != std::string::npos)
+                ++key_pos;
+            
+        }
+        return tagValueMap;
+}
+
+};
+
+class OrderManager
+{
+    private:
+        AccountHighLowPriceMap accountToPriceMap;          
+        void getHighLowPricePerAccount(FixTagValueMap const& newOrderSingle);   
+        
+    public: 
+        void processOrders(FixTagValueMap const& newOrderSingle);
+        void displayPriceTable();
+      
+        
+};
+
+void OrderManager::displayPriceTable()
+{
+    cout<<"\n\n\nAccount Price Table High Low Stats \n\n";
+   
+    for(const auto& element : accountToPriceMap)
+    {
+        cout<<"\nAccount : " << element.first<<"\n";
+        cout<<"---------- HighBidPrice : " << element.second.HighBidPrice << "\n";
+        cout<<"---------- LowBidPrice : " << element.second.LowBidPrice << "\n";
+        cout<<"---------- HighAskPrice : " << element.second.HighAskPrice << "\n";
+        cout<<"---------- LowAskPrice : " << element.second.LowAskPrice << "\n";
+        
+    }
+    
+}
+void OrderManager::processOrders(FixTagValueMap const& newOrderSingle)
+{
+    getHighLowPricePerAccount(newOrderSingle);
+}
+void OrderManager::getHighLowPricePerAccount(FixTagValueMap const& newOrderSingle)
+{
+     double price;
+     string side;
+     string account;
+     auto tagValueItr = newOrderSingle.find(to_string(spriderrock_ns::msg_tag::Account));
+    
+     if(tagValueItr != newOrderSingle.end())
+     {
+         account = std::any_cast<string>(tagValueItr->second);
+     }
+        tagValueItr = newOrderSingle.find(to_string(spriderrock_ns::msg_tag::Price)); 
+         if(tagValueItr != newOrderSingle.end())
+         {
+             price = stold(std::any_cast<string>(tagValueItr->second));
+         }
+         tagValueItr = newOrderSingle.find(to_string(spriderrock_ns::msg_tag::Side)); 
+         if(tagValueItr!=newOrderSingle.end())
+         {
+             side = std::any_cast<string>(tagValueItr->second);
+         }
+         auto accountPriceItr = accountToPriceMap.find(account);
+         if(accountPriceItr != accountToPriceMap.end()) // Found the account
+         {       
+            if(tagValueItr!=newOrderSingle.end())
+            {
+                if(side == "1") // Bid Side
+                {
+                    if(accountPriceItr->second.HighBidPrice < price)
+                        accountPriceItr->second.HighBidPrice = price;
+                    if(accountPriceItr->second.LowBidPrice > price)
+                        accountPriceItr->second.LowBidPrice = price;
+                    if (accountPriceItr->second.HighBidPrice == 0) accountPriceItr->second.HighBidPrice = price;
+                    if (accountPriceItr->second.LowBidPrice == 0) accountPriceItr->second.LowBidPrice = price;
+                }
+                if(side == "2") // Offer Side
+                {
+                    if(accountPriceItr->second.HighAskPrice < price)
+                        accountPriceItr->second.HighAskPrice = price;
+                    if(accountPriceItr->second.LowAskPrice > price)
+                        accountPriceItr->second.LowAskPrice = price;
+                    if (accountPriceItr->second.HighAskPrice == 0) accountPriceItr->second.HighAskPrice = price;
+                    if (accountPriceItr->second.LowAskPrice == 0) accountPriceItr->second.LowAskPrice = price;
+                }
+            }
+         }
+         else
+         {
+            spriderrock_ns::PriceDetail priceDetail;
+            if(side=="1")
+            {
+                priceDetail.HighBidPrice = price;
+                priceDetail.LowBidPrice = price;
+            }
+            else
+            {
+                priceDetail.HighAskPrice = price;
+                priceDetail.LowAskPrice = price;
+            }
+            accountToPriceMap.try_emplace(account,priceDetail);
+
+        }
+       
+           
+}
+
+class SpiderrockFixSession
+{
+    private:
+    shared_ptr<OrderManager> orderManager;
+    shared_ptr<FIXParser> fixParser;
+
+    public:
+    SpiderrockFixSession() : orderManager(new OrderManager()) {}
+    void SetupMsgHandlers(string const& fixMessage);
+    void HandleOrderMessage(string const& fixMessage);  
+    void DisplayHighLowPricePerAccount();
+};
+
+void SpiderrockFixSession::SetupMsgHandlers(string const& fixMessage)
+{
+    stringstream log;
+    auto goodFix = fixParser->parseFixMessageTags(fixMessage);
+    string msgType;
+    if(!goodFix.empty())
+    {
+      auto fixItr  = goodFix.find(to_string(spriderrock_ns::msg_tag::MsgType));
+        if(fixItr != goodFix.end())
+        {
+            msgType = std::any_cast<string>(fixItr->second);
+        }
+        switch (msgType[0])
+        {
+            case spriderrock_ns::msgType_AddNewOrderSingle :   orderManager->processOrders(goodFix); break;
+            default: log.str(std::string());
+                     log <<"Unhandled MsgTpe " << msgType[0] <<endl;
+                     LogMessage(severity::WARN,log);
+                     break;
+        } 
+    }
+    
+}
+void SpiderrockFixSession::DisplayHighLowPricePerAccount()
+{
+    orderManager->displayPriceTable();
+}
+int main()
+{
+    SpiderrockFixSession *spiderrock = new SpiderrockFixSession();
+    string line;
+    while(getline(cin,line))
+    {       
+        spiderrock->SetupMsgHandlers(line.c_str());
+    }
+    spiderrock->DisplayHighLowPricePerAccount();
+    return 0;
 }
